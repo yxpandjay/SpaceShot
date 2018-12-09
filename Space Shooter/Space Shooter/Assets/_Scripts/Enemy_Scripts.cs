@@ -11,9 +11,9 @@ public class Enemy_Scripts : MonoBehaviour {
     public float Speed;
 
     public GameObject explosion_enemy;
-    public GameObject explosion_stone;
- //   public int score;
- //   private GameController_Sripts gameController;
+
+    public int score;
+    private GameController_Sripts gameController;
 
     private void Start()
     {
@@ -30,19 +30,15 @@ public class Enemy_Scripts : MonoBehaviour {
         }	
 	}
 
-    private void OnTriggerEnter(Collider other)
+    void OnTriggerEnter(Collider other)
     {
         if (other.tag == "Boundary")
             return;
-        if (other.tag == "Player")
+        if (other.tag == "Bolt" || other.tag == "Asteroid")
         {
+            gameController.Add_score(score);
+            Destroy(gameObject);
             Instantiate(explosion_enemy, transform.position, transform.rotation);
-            //gameController.Game_Over();
         }
-        else if(other.tag == "")
-           // gameController.Add_score(score);
-        Instantiate(explosion_stone, transform.position, transform.rotation);
-        Destroy(other.gameObject);
-        Destroy(gameObject);
     }
 }

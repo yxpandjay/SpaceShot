@@ -2,8 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Mover_Script : MonoBehaviour
-{
+public class Mover_Enemy_Scripts : MonoBehaviour {
 
     public float speed;
 
@@ -16,10 +15,9 @@ public class Mover_Script : MonoBehaviour
     {
         if (other.tag == "Boundary")
             return;
-    //    if (other.tag == "Player"|| other.tag == "Asteroid" || other.tag == "Enemy")
-        if(other.tag == "Asteroid"|| other.tag == "Enemy")
-         Destroy(gameObject);
-        
-    }
+        //    if (other.tag == "Player"|| other.tag == "Asteroid" || other.tag == "Enemy")
+        if (other.tag == "Asteroid"|| other.tag == "Player")
+            Destroy(gameObject);
 
+    }
 }

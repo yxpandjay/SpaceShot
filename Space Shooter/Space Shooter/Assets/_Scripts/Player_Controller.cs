@@ -18,6 +18,9 @@ public class Player_Controller : MonoBehaviour
     public float fireRate;
     private float nextFire;
 
+    public GameObject explosion_player;
+    private GameController_Sripts Game_controller;
+
     void Update()
     {
         if (Input.GetButton("Fire1") && Time.time > nextFire)
@@ -46,8 +49,16 @@ public class Player_Controller : MonoBehaviour
         GetComponent<Rigidbody>().rotation = Quaternion.Euler(0.0f, 0.0f, GetComponent<Rigidbody>().velocity.x * -tilt);
     }
 
-    private void OnTriggerEnter(Collider other)
+    void OnTriggerEnter(Collider other)
     {
-        
+        if (other.tag == "Boundary")
+            return;
+        if (other.tag == "Bolt_enemy" || other.tag == "Asteroid" || other.tag == "Enemy")
+        {
+            Instantiate(explosion_player, transform.position, transform.rotation);
+            
+        }
+        Destroy(gameObject);
+        Game_controller.Game_Over();
     }
 }
