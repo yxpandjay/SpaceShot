@@ -18,6 +18,7 @@ public class GameController_Sripts : MonoBehaviour {
 
     public Text Gameover_text;
     private bool gameover_flag;
+    public bool gameover_flag_to_check;
 
     public Text Restart_text;
     private bool restart_flag;
@@ -36,6 +37,7 @@ public class GameController_Sripts : MonoBehaviour {
 
     private void Update()
     {
+        gameover_flag_to_check = gameover_flag;
         if (restart_flag)
         {
             if (Input.GetKeyDown(KeyCode.R)||(Input.GetTouch(0).phase==TouchPhase.Began&&Input.touchCount>0))//多点触控发生，且点击事件为开始
@@ -43,6 +45,7 @@ public class GameController_Sripts : MonoBehaviour {
                 Application.LoadLevel(Application.loadedLevel);
             }
         }
+
     }
 
     IEnumerator Waves()

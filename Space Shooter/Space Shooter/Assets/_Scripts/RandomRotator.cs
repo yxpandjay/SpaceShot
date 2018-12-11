@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class RandomRotator : MonoBehaviour {
     public float tumble;
+    public GameObject Stone;
     public GameObject explosion_stone;
     public int score;
     private GameController_Sripts gameController;
@@ -23,14 +24,24 @@ public class RandomRotator : MonoBehaviour {
 	}
     void OnTriggerEnter(Collider other)
     {
-        if (other.tag == "Boundary")
-            return;
-        if (other.tag != "Player")
+        if (gameController.gameover_flag_to_check == false)
         {
-           gameController.Add_score(score);
+            if (other.tag == "Boundary")
+            return;
+            if (other.tag != "Player")
+            {
+               gameController.Add_score(score);
+            }
+            if (gameObject.tag == "Asteroid_big")
+            {
+                Instantiate(Stone, other.transform.position, Quaternion.identity);
+  //              Vector3  vector3 = new  Vector3 (other.transform.position.x,0, other.transform.position.z);
+  //              Instantiate(Stone, vector3, transform.rotation);
+            }
+            Instantiate(explosion_stone, transform.position, transform.rotation);
+            Destroy(gameObject);
         }
-        Instantiate(explosion_stone, transform.position, transform.rotation);
-        Destroy(gameObject); 
+           
     }
 
 

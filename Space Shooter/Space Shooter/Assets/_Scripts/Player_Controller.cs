@@ -19,7 +19,20 @@ public class Player_Controller : MonoBehaviour
     private float nextFire;
 
     public GameObject explosion_player;
-    private GameController_Sripts Game_controller;
+    private GameController_Sripts gameController;
+
+    private void Start()
+    {
+        GameObject gameControllerObject = GameObject.FindWithTag("GameController");
+        if (gameControllerObject != null)
+        {
+            gameController = gameControllerObject.GetComponent<GameController_Sripts>();
+        }
+        if (gameControllerObject == null)
+        {
+            Debug.Log("Cannot find 'GameController' scripts");
+        }
+    }
 
     void Update()
     {
@@ -33,8 +46,8 @@ public class Player_Controller : MonoBehaviour
 
     void FixedUpdate ()
 	{
-		float moveHorizontal = Input.acceleration.x *3;
-		float moveVertical = Input.acceleration.y *3;
+		float moveHorizontal = Input.acceleration.x *3+Input.GetAxis("Horizontal");
+		float moveVertical = Input.acceleration.y *3+Input.GetAxis("Vertical");
 
 		Vector3 movement = new Vector3 (moveHorizontal, 0.0f, moveVertical);
 		GetComponent<Rigidbody>().velocity = movement * speed;
@@ -51,14 +64,18 @@ public class Player_Controller : MonoBehaviour
 
     void OnTriggerEnter(Collider other)
     {
-        if (other.tag == "Boundary")
-            return;
-        if (other.tag == "Bolt_enemy" || other.tag == "Asteroid" || other.tag == "Enemy")
+        if (gameController.gameover_flag_to_check == false)
         {
-            Instantiate(explosion_player, transform.position, transform.rotation);
+            if (other.tag == "Boundary")
+            return;
+            if (other.tag == "Bolt_enemy" || other.tag == "Asteroid" || other.tag == "Enemy" || other.tag == "Asteroid_big")
+            {
+                Instantiate(explosion_player, transform.position, transform.rotation);
             
+            }
+            Destroy(gameObject);
+            gameController.Game_Over();
         }
-        Destroy(gameObject);
-        Game_controller.Game_Over();
+            
     }
 }
