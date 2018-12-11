@@ -1,7 +1,9 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+/***********************************************************************/
+/**************************敌军主函数**********************************/
+/***********************************************************************/
 public class Enemy_Scripts : MonoBehaviour {
 
     public float Fire_rate_time;
@@ -20,7 +22,7 @@ public class Enemy_Scripts : MonoBehaviour {
     {
 
         GetComponent<Rigidbody>().velocity = transform.forward * Speed;
-        
+        //检测游戏主函数存在并且给出提示
         GameObject gameControllerObject = GameObject.FindWithTag("GameController");
         if (gameControllerObject != null)
         {
@@ -48,12 +50,14 @@ public class Enemy_Scripts : MonoBehaviour {
 
     void OnTriggerEnter(Collider other)
     {
+        //游戏结束后不再发生碰撞事件
         if (gameController.gameover_flag_to_check == false)
         {
             if (other.tag == "Boundary")
                 return;
             if (other.tag != "Bolt_enemy")
             {
+                //敌机本身与非玩家碰撞会加分
                 if (other.tag != "Player")
                     gameController.Add_score(score);
                 Destroy(gameObject);

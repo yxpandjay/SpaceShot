@@ -1,7 +1,9 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+/***********************************************************************/
+/**************************摄像机函数**********************************/
+/***********************************************************************/
 public class CameraScripts : MonoBehaviour {
 
     // Use this for initialization

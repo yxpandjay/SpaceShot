@@ -1,6 +1,10 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+/***********************************************************************/
+/**************************玩家函数**********************************/
+/***********************************************************************/
+
 [System.Serializable]
 public class Done_Boundary 
 {
@@ -22,7 +26,7 @@ public class Player_Controller : MonoBehaviour
     private GameController_Sripts gameController;
 
     private void Start()
-    {
+    {   //检测游戏主函数存在并且给出提示
         GameObject gameControllerObject = GameObject.FindWithTag("GameController");
         if (gameControllerObject != null)
         {
@@ -46,6 +50,7 @@ public class Player_Controller : MonoBehaviour
 
     void FixedUpdate ()
 	{
+        //pc键盘和移动端重力感应都可以用
 		float moveHorizontal = Input.acceleration.x *3+Input.GetAxis("Horizontal");
 		float moveVertical = Input.acceleration.y *3+Input.GetAxis("Vertical");
 
@@ -63,7 +68,7 @@ public class Player_Controller : MonoBehaviour
     }
 
     void OnTriggerEnter(Collider other)
-    {
+    {   //游戏结束后不再发生碰撞事件
         if (gameController.gameover_flag_to_check == false)
         {
             if (other.tag == "Boundary")

@@ -2,7 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-
+/***********************************************************************/
+/**************************游戏主函数**********************************/
+/***********************************************************************/
 public class GameController_Sripts : MonoBehaviour {
 
     public GameObject Stone;
@@ -41,6 +43,7 @@ public class GameController_Sripts : MonoBehaviour {
         gameover_flag_to_check = gameover_flag;
         if (restart_flag)
         {
+            //pc端的键盘和安卓端的触屏同时都写上了
             if (Input.GetKeyDown(KeyCode.R)||(Input.GetTouch(0).phase==TouchPhase.Began&&Input.touchCount>0))//多点触控发生，且点击事件为开始
             {
                 Application.LoadLevel(Application.loadedLevel);
