@@ -51,8 +51,8 @@ public class Player_Controller : MonoBehaviour
     void FixedUpdate ()
 	{
         //pc键盘和移动端重力感应都可以用
-		float moveHorizontal = Input.acceleration.x *3+Input.GetAxis("Horizontal");
-		float moveVertical = Input.acceleration.y *3+Input.GetAxis("Vertical");
+		float moveHorizontal = Input.acceleration.x *3+Input.GetAxis("Horizontal");//
+		float moveVertical = Input.acceleration.y *3+Input.GetAxis("Vertical");//
 
 		Vector3 movement = new Vector3 (moveHorizontal, 0.0f, moveVertical);
 		GetComponent<Rigidbody>().velocity = movement * speed;
@@ -76,10 +76,10 @@ public class Player_Controller : MonoBehaviour
             if (other.tag == "Bolt_enemy" || other.tag == "Asteroid" || other.tag == "Enemy" || other.tag == "Asteroid_big")
             {
                 Instantiate(explosion_player, transform.position, transform.rotation);
-            
+                Destroy(gameObject);
+                gameController.Game_Over();
             }
-            Destroy(gameObject);
-            gameController.Game_Over();
+            
         }
             
     }

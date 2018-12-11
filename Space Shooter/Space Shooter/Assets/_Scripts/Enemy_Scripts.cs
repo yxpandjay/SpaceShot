@@ -13,7 +13,7 @@ public class Enemy_Scripts : MonoBehaviour {
     public float Speed;
 
     public GameObject explosion_enemy;
-    public GameObject Player_object;
+ //   public GameObject Player_object;
 
     public int score;
     private GameController_Sripts gameController;
@@ -22,6 +22,7 @@ public class Enemy_Scripts : MonoBehaviour {
     {
 
         GetComponent<Rigidbody>().velocity = transform.forward * Speed;
+        next_time = Time.time;
         //检测游戏主函数存在并且给出提示
         GameObject gameControllerObject = GameObject.FindWithTag("GameController");
         if (gameControllerObject != null)
@@ -38,13 +39,17 @@ public class Enemy_Scripts : MonoBehaviour {
     void Update () {
         if (Time.time > next_time)
         {
+       
             next_time += Fire_rate_time;
+            //朝向玩家的四元数
+            GameObject Player_object=GameObject.Find("Player");
+            Quaternion face_to_player_quaternion = Quaternion.LookRotation(transform.position-Player_object.transform.position );
+            transform.rotation = face_to_player_quaternion;
             Instantiate(Shot, Shot_spawn.position, Shot_spawn.rotation);
 
+
         }
-        //朝向玩家的四元数
-        Quaternion face_to_player_quaternion = Quaternion.LookRotation(transform.position-Player_object.transform.position );
-        transform.rotation = face_to_player_quaternion;
+        
 
     }
 
