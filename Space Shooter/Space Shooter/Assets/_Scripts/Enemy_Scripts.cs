@@ -11,6 +11,7 @@ public class Enemy_Scripts : MonoBehaviour {
     public float Speed;
 
     public GameObject explosion_enemy;
+    public GameObject Player_object;
 
     public int score;
     private GameController_Sripts gameController;
@@ -38,8 +39,12 @@ public class Enemy_Scripts : MonoBehaviour {
             next_time += Fire_rate_time;
             Instantiate(Shot, Shot_spawn.position, Shot_spawn.rotation);
 
-        }	
-	}
+        }
+        //朝向玩家的四元数
+        Quaternion face_to_player_quaternion = Quaternion.LookRotation(transform.position-Player_object.transform.position );
+        transform.rotation = face_to_player_quaternion;
+
+    }
 
     void OnTriggerEnter(Collider other)
     {

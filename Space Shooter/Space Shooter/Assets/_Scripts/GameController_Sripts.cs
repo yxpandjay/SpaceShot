@@ -18,6 +18,7 @@ public class GameController_Sripts : MonoBehaviour {
 
     public Text Gameover_text;
     private bool gameover_flag;
+    [HideInInspector]
     public bool gameover_flag_to_check;
 
     public Text Restart_text;
